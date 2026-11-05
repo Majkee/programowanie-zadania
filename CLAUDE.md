@@ -18,6 +18,7 @@ Uruchamiaj testy po każdej zmianie. Przed zakończeniem pracy wszystkie testy m
 - `fixtures/` – dane referencyjne (modele, wydania, aplikacje, urządzenia) i wektory testowe.
 - `data/` – stan runtime serwera, nie commitujemy.
 - `tv/` – klient telewizora.
+- `zadania/` – strona z treścią zadań dla uczestników (`index.html`, `mapa.html`, `konfiguracja.html`), statyczny HTML.
 - `mcp_server/` – serwery MCP do modułów 5 i 6: gotowy `lumio_ops.py`, zastępczy `mcp_lite.py` (sam stdlib), klient testowy `smoke.py` oraz materiały do ćwiczeń w `community/` i `examples/`.
 
 ## Zasady

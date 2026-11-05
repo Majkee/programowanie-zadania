@@ -2,7 +2,7 @@
 
 Repozytorium do ćwiczeń z modułu 3. Dołączasz do zespołu backendu Lumio, producenta telewizorów. Zespół obsługuje aktualizacje firmware'u (OTA), katalog aplikacji i rejestr urządzeń dla telewizorów, które są już u klientów.
 
-Treść zadań jest na stronie z ćwiczeniami. Tu jest tylko kod.
+Treść zadań jest w [`zadania/index.html`](zadania/index.html). Otwórz ten plik w przeglądarce (działa też bez serwera). Stamtąd są linki do mapy i konfiguracji Software Factory (`zadania/mapa.html`, `zadania/konfiguracja.html`).
 
 ## Start (15 minut)
 
