@@ -248,12 +248,12 @@ footer { color: var(--muted); font-size: 0.875rem; margin-top: 32px; }
   <main>
 
     <!-- ===================== 0 ===================== -->
-    <section class="module" id="start" data-min="10" data-num="0" data-title="Przygotowanie" data-group="Start">
+    <section class="module" id="start" data-min="15" data-num="0" data-title="Przygotowanie" data-group="Start">
       <div class="mod-head">
         <div class="mod-num">0</div>
         <h2>Przygotowanie</h2>
-        <div class="mod-meta"><span>10 min</span></div>
-        <p class="goal">Claude Code działa w katalogu repozytorium, widzi skille, a telewizor jest otwarty w przeglądarce.</p>
+        <div class="mod-meta"><span>15 min</span></div>
+        <p class="goal">Claude Code działa w katalogu repozytorium, widzi skille, ma przeglądarkę Playwright, a telewizor jest otwarty w przeglądarce.</p>
       </div>
 
       <article class="task">
@@ -261,6 +261,17 @@ footer { color: var(--muted); font-size: 0.875rem; margin-top: 32px; }
         <div class="task-body">
           <p>Sklonuj <a data-repo href="#" target="_blank" rel="noopener">repozytorium tv-backend</a> albo rozpakuj ZIP od trenera.</p>
           <p class="hint">Na Windowsie przed rozpakowaniem: prawy klik na ZIP, Właściwości, zaznacz „Odblokuj”. ZIP z przycisku „Download ZIP” na GitHubie nie ma historii ani tagu <code>start</code>, nie używaj go.</p>
+        </div>
+      </article>
+
+      <article class="task">
+        <div class="task-head"><input type="checkbox" id="m0t1b"><label for="m0t1b">Dodaj Playwright, przeglądarkę dla agenta</label></div>
+        <div class="task-body">
+          <p>Playwright to serwer MCP, który pozwala agentowi samodzielnie otworzyć stronę, klikać, naciskać klawisze i robić zrzuty ekranu. Dzięki temu agent sam sprawdzi, czy Pogoda naprawdę wyświetla się w telewizorze, zamiast zgadywać na podstawie kodu.</p>
+          <p>W terminalu, w katalogu repozytorium, zanim uruchomisz <code>claude</code>, wpisz:</p>
+          <div class="prompt shell"><div class="prompt-label">W terminalu (macOS, Linux)</div><pre>claude mcp add playwright -- npx @playwright/mcp@latest</pre></div>
+          <div class="prompt shell"><div class="prompt-label">W terminalu (Windows)</div><pre>claude mcp add playwright -- cmd /c npx @playwright/mcp@latest</pre></div>
+          <p class="hint">Potrzebny jest Node.js 18 lub nowszy: sprawdzisz go poleceniem <code>node --version</code>. Konfiguracja trafia do Twoich ustawień Claude Code dla tego katalogu, nie do repozytorium, więc nie pojawi się w commitach. Nie masz Node.js albo instalacja jest zablokowana? Pomiń ten krok i daj znać trenerowi. Zadania da się zrobić bez Playwright, tylko telewizor sprawdzasz wtedy sam.</p>
         </div>
       </article>
 
@@ -289,6 +300,15 @@ footer { color: var(--muted); font-size: 0.875rem; margin-top: 32px; }
         </div>
       </article>
 
+      <article class="task">
+        <div class="task-head"><input type="checkbox" id="m0t5"><label for="m0t5">Sprawdź, że agent widzi telewizor</label></div>
+        <div class="task-body">
+          <p>Wpisz <code>/mcp</code>: serwer <code>playwright</code> powinien być połączony. Potem poproś agenta, żeby sam obejrzał telewizor:</p>
+          <div class="prompt"><div class="prompt-label">Prompt dla Claude</div><pre>Przez Playwright otwórz http://localhost:8765/tv/?device=TV-001, strzałkami przejdź do aplikacji Pogoda, naciśnij Enter, zrób zrzut ekranu i opisz, co widać. Niczego nie zmieniaj w kodzie.</pre></div>
+          <p class="hint">Za pierwszym razem Claude Code zapyta o zgodę na narzędzia <code>playwright</code>. Brakuje przeglądarki? Napisz: <code>Zainstaluj przeglądarkę dla Playwright.</code> Serwer ma do tego własne narzędzie.</p>
+        </div>
+      </article>
+
       <details class="howto" id="portable-python">
         <summary>Nie masz Pythona? Instalacja przenośnej wersji na Windowsie</summary>
         <div class="howto-body">
@@ -311,6 +331,7 @@ footer { color: var(--muted); font-size: 0.875rem; margin-top: 32px; }
         <ul>
           <li>raport z <code>/sprawdz-srodowisko</code> kończy się linią „Środowisko gotowe.”</li>
           <li>telewizor w przeglądarce otwiera aplikację Pogoda</li>
+          <li>agent opisał ekran Pogody na podstawie zrzutu z Playwright (albo wiesz od trenera, że pracujesz bez niego)</li>
         </ul>
       </div>
     </section>
@@ -345,6 +366,7 @@ footer { color: var(--muted); font-size: 0.875rem; margin-top: 32px; }
           <div class="prompt"><div class="prompt-label">Opis zadania (ten sam w zadaniach 1 i 2)</div><pre id="brief-1">W katalogu aplikacji telewizora Lumio jest aplikacja Pogoda, ale po jej otwarciu telewizor pokazuje tylko nazwę. Zrób tak, żeby pokazywała aktualną pogodę w Warszawie. Dane ma dostarczać backend. Sposób wyświetlania jest dowolny.
 
 Dane pobieraj z Open-Meteo (https://open-meteo.com/), które nie wymaga klucza API.</pre></div>
+          <p class="note"><strong>Niech agent sam sprawdza wynik.</strong> Masz Playwright z zadania 0? Dopisz do promptu: <code>Po każdej zmianie sprawdź telewizor przez Playwright i pokaż zrzut ekranu.</code> Działa tak samo w kolejnych zadaniach.</p>
           <p class="note"><strong>Sieć blokuje Open-Meteo?</strong> Poproś agenta o dane wpisane na stałe i zaznacz to w notatkach.</p>
         </div>
       </article>
@@ -932,6 +954,7 @@ Zrób prototyp logiki jako jeden plik HTML i otwórz go w przeglądarce. Nie zmi
           <tr><td><kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>przełącza tryb pracy, np. automatyczną akceptację edycji plików. Mniej klikania „Yes”.</td><td class="mod">0</td></tr>
           <tr><td><code>@ścieżka</code></td><td>dołącza plik do wiadomości, np. <code>@CONTEXT.md</code>.</td><td class="mod">0</td></tr>
           <tr><td><code>/context</code></td><td>pokazuje, co zajmuje kontekst.</td><td class="mod">0</td></tr>
+          <tr><td><code>claude mcp add playwright …</code></td><td>daje agentowi przeglądarkę: otwiera telewizor, klika, robi zrzuty ekranu.</td><td class="mod">0</td></tr>
           <tr><td><code>/sprawdz-srodowisko</code></td><td>sprawdza Pythona, gita, skille, testy, serwer telewizora i serwer MCP.</td><td class="mod">0</td></tr>
           <tr><td><code>/grilling</code></td><td>wywiad przed kodem: pytania rundami, przy każdym rekomendacja.</td><td class="mod">2</td></tr>
           <tr><td><code>/grill-with-docs</code></td><td>wywiad, który zapisuje słownik w <code>CONTEXT.md</code> i decyzje w <code>docs/adr/</code>.</td><td class="mod">4</td></tr>
