@@ -265,21 +265,32 @@ footer { color: var(--muted); font-size: 0.875rem; margin-top: 32px; }
       </article>
 
       <article class="task">
-        <div class="task-head"><input type="checkbox" id="m0t1b"><label for="m0t1b">Dodaj Playwright, przeglądarkę dla agenta</label></div>
-        <div class="task-body">
-          <p>Playwright to serwer MCP, który pozwala agentowi samodzielnie otworzyć stronę, klikać, naciskać klawisze i robić zrzuty ekranu. Dzięki temu agent sam sprawdzi, czy Pogoda naprawdę wyświetla się w telewizorze, zamiast zgadywać na podstawie kodu.</p>
-          <p>W terminalu, w katalogu repozytorium, zanim uruchomisz <code>claude</code>, wpisz:</p>
-          <div class="prompt shell"><div class="prompt-label">W terminalu (macOS, Linux)</div><pre>claude mcp add playwright -- npx @playwright/mcp@latest</pre></div>
-          <div class="prompt shell"><div class="prompt-label">W terminalu (Windows)</div><pre>claude mcp add playwright -- cmd /c npx @playwright/mcp@latest</pre></div>
-          <p class="hint">Potrzebny jest Node.js 18 lub nowszy: sprawdzisz go poleceniem <code>node --version</code>. Konfiguracja trafia do Twoich ustawień Claude Code dla tego katalogu, nie do repozytorium, więc nie pojawi się w commitach. Nie masz Node.js albo instalacja jest zablokowana? Pomiń ten krok i daj znać trenerowi. Zadania da się zrobić bez Playwright, tylko telewizor sprawdzasz wtedy sam.</p>
-        </div>
-      </article>
-
-      <article class="task">
         <div class="task-head"><input type="checkbox" id="m0t2"><label for="m0t2">Uruchom Claude Code</label></div>
         <div class="task-body">
           <p>W terminalu przejdź do katalogu repozytorium i uruchom Claude Code.</p>
           <div class="prompt shell"><div class="prompt-label">W terminalu</div><pre>claude</pre></div>
+        </div>
+      </article>
+
+      <article class="task">
+        <div class="task-head"><input type="checkbox" id="m0t1b"><label for="m0t1b">Dodaj Playwright, przeglądarkę dla agenta</label></div>
+        <div class="task-body">
+          <p>Playwright to serwer MCP, który pozwala agentowi samodzielnie otworzyć stronę, klikać, naciskać klawisze i robić zrzuty ekranu. Dzięki temu agent sam sprawdzi, czy Pogoda naprawdę wyświetla się w telewizorze, zamiast zgadywać na podstawie kodu.</p>
+          <p>Zainstaluj go jako plugin z oficjalnego marketplace. W sesji Claude wpisz:</p>
+          <div class="prompt"><div class="prompt-label">W sesji Claude</div><pre>/plugin install playwright@claude-plugins-official</pre></div>
+          <p>Możesz też wpisać samo <code>/plugin</code>, przejść do zakładki <em>Discover</em>, wyszukać <code>playwright</code> i zainstalować go z menu. Po instalacji zamknij sesję (<code>/exit</code>) i uruchom <code>claude</code> ponownie, żeby serwer się uruchomił.</p>
+          <p class="hint">Potrzebny jest Node.js 18 lub nowszy: sprawdzisz go poleceniem <code>node --version</code>. Claude Code nie zna marketplace <code>claude-plugins-official</code>? Dodaj go: <code>/plugin marketplace add anthropics/claude-plugins-official</code>.</p>
+
+          <details class="howto">
+            <summary>Plugin nie działa? Dodaj serwer ręcznie</summary>
+            <div class="howto-body">
+              <p>Ten sposób przydaje się zwłaszcza na Windowsie, gdy plugin nie łączy się w <code>/mcp</code>, oraz gdy marketplace jest niedostępny. Zamknij sesję (<code>/exit</code>) i w terminalu, w katalogu repozytorium, wpisz:</p>
+              <div class="prompt shell"><div class="prompt-label">W terminalu (macOS, Linux)</div><pre>claude mcp add playwright -- npx @playwright/mcp@latest</pre></div>
+              <div class="prompt shell"><div class="prompt-label">W terminalu (Windows)</div><pre>claude mcp add playwright -- cmd /c npx @playwright/mcp@latest</pre></div>
+              <p>Potem uruchom <code>claude</code> ponownie. Jeśli plugin był zainstalowany, wyłącz go w <code>/plugin</code>, żeby nie mieć dwóch serwerów o tej samej nazwie. Konfiguracja trafia do Twoich ustawień Claude Code dla tego katalogu, nie do repozytorium, więc nie pojawi się w commitach.</p>
+            </div>
+          </details>
+          <p class="hint">Nie masz Node.js albo instalacja jest zablokowana? Pomiń ten krok i daj znać trenerowi. Zadania da się zrobić bez Playwright, tylko telewizor sprawdzasz wtedy sam.</p>
         </div>
       </article>
 
@@ -954,7 +965,8 @@ Zrób prototyp logiki jako jeden plik HTML i otwórz go w przeglądarce. Nie zmi
           <tr><td><kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>przełącza tryb pracy, np. automatyczną akceptację edycji plików. Mniej klikania „Yes”.</td><td class="mod">0</td></tr>
           <tr><td><code>@ścieżka</code></td><td>dołącza plik do wiadomości, np. <code>@CONTEXT.md</code>.</td><td class="mod">0</td></tr>
           <tr><td><code>/context</code></td><td>pokazuje, co zajmuje kontekst.</td><td class="mod">0</td></tr>
-          <tr><td><code>claude mcp add playwright …</code></td><td>daje agentowi przeglądarkę: otwiera telewizor, klika, robi zrzuty ekranu.</td><td class="mod">0</td></tr>
+          <tr><td><code>/plugin</code></td><td>przegląda marketplace, instaluje, włącza i wyłącza pluginy.</td><td class="mod">0</td></tr>
+          <tr><td><code>/plugin install playwright@claude-plugins-official</code></td><td>daje agentowi przeglądarkę: otwiera telewizor, klika, robi zrzuty ekranu.</td><td class="mod">0</td></tr>
           <tr><td><code>/sprawdz-srodowisko</code></td><td>sprawdza Pythona, gita, skille, testy, serwer telewizora i serwer MCP.</td><td class="mod">0</td></tr>
           <tr><td><code>/grilling</code></td><td>wywiad przed kodem: pytania rundami, przy każdym rekomendacja.</td><td class="mod">2</td></tr>
           <tr><td><code>/grill-with-docs</code></td><td>wywiad, który zapisuje słownik w <code>CONTEXT.md</code> i decyzje w <code>docs/adr/</code>.</td><td class="mod">4</td></tr>
